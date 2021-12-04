@@ -20,5 +20,9 @@ function modificar_producto($datos) {
 
     return json_encode($producto);
 }
-
+function agregar_producto($datos){
+    include_once("./conexion.php");
+    $consulta = $conexion->query("INSERT INTO productos VALUES (null,'$datos->titulo','$datos->descripcion','$datos->precio','1','$datos->categoria')");
+    echo json_encode("Datos Guardados");
+}
 // Falta crear las funciones para eliminar y crear un nuevo registro
