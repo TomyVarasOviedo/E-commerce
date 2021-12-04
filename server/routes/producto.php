@@ -16,7 +16,15 @@ router("POST","/producto", function(){
     $datos->cantidad = $_POST['cantidad'];
     echo modificar_producto($datos);
 });
-
+router("POST", "/agregar-productos", function(){
+    include_once("./models/producto.php");
+    $datos = new stdClass();
+    $datos->titulo = $_POST['titulo'];
+    $datos->descripcion = $_POST['descripcion'];
+    $datos->precio = $_POST['precio'];
+    $datos->categoria = $_POST['categoria'];
+    echo agregar_producto($datos);
+});
 router('PUT', '/producto/add', function(){
     if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         parse_str(file_get_contents("php://input"),$put_vars);
