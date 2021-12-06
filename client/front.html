@@ -4,71 +4,70 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script>
-      function retrieveData () {
-          fetch("http://localhost/e-commerce/server/productos")
-          .then((res) => res.json())
-          .then((data) => {
-              console.log(data);
-              // data = data[0];
-              // console.log(data);
-              const divDatos = document.getElementById("datos");
-
-              data.map((producto => {
-                const div = document.createElement("div");
-                div.className += "card"; 
-                const img = document.createElement("img");
-                img.src = producto.imagen;
-                img.className = "img-card";
-                const p = document.createElement("p");
-                p.innerText = producto.nombre;
-                div.appendChild(img);
-                div.appendChild(p);
-                divDatos.appendChild(div);
-
-              }))
-              // for (let i=0; i < data.length; i++) {
-              //   const datos = document.createElement("div");
-              //   datos.innerText = "Producto: " + data[i].nombre + "\nCantidad: " + data[i].cantidad + "\nPrecio:" + data[i].precio;
-              //   const div = document.getElementById("datos");
-              //   div.appendChild(datos);
-              // }
-            });
-        };
-      document.addEventListener("DOMContentLoaded", function (event) {
-        retrieveData(); 
-        // const button = document.querySelector(".button");
-        // button.addEventListener("click", () => {
-        //   retrieveData();
-        // });
-        //Las peticiones se hacen a la uri del server segun las rutas definidas
-        
-      });
-    </script>
-
-    <style>
-      .datos {
-        width: 700px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        flex-wrap: wrap;
-      }
-      .card {
-        margin: 10px;
-        width: 150px;
-        height: 250px;
-        background-color: blue;
-        padding: 10px;
-      }
-      .img-card {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/front.css">
+    <title>ArtShop</title>
   </head>
   <body>
-    <button type="button" class="button">Retrieve data from api</button>
-    <div id="datos" class="datos"></div>
+<!-- ----MENU---- -->
+        <nav>
+          <div class="nav-wrapper">
+            <a href="#!" class="brand-logo"><img src="img/fondo.svg" width="80" alt=""></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="sass.html">Sass</a></li>
+              <li><a href="badges.html">Components</a></li>
+              <li><a href="collapsible.html">Javascript</a></li>
+              <li><a href="mobile.html">Mobile</a></li>
+            </ul>
+          </div>
+        </nav>
+      
+        <ul class="sidenav" id="mobile-demo">
+          <li><a href="sass.html">Sass</a></li>
+          <li><a href="badges.html">Components</a></li>
+          <li><a href="collapsible.html">Javascript</a></li>
+          <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+<!-- ----MENU---- -->
+<!-- ----SLIDER---- -->
+      <header>
+        <div class="carousel carousel-slider">
+          <a class="carousel-item" href="#one!"><img src="https://images.unsplash.com/photo-1612740393489-c07577fd55a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"></a>
+          <a class="carousel-item" href="#two!"><img src="https://images.unsplash.com/photo-1612740393489-c07577fd55a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"></a>
+          <a class="carousel-item" href="#three!"><img src="https://images.unsplash.com/photo-1612740393489-c07577fd55a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"></a>
+          <a class="carousel-item" href="#four!"><img src="https://images.unsplash.com/photo-1612740393489-c07577fd55a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"></a>
+        </div>
+      </header>
+<!-- ----SLIDER---- -->
+<div class="divider"></div>
+<!-- ----SECCIONES---- -->
+<section class="section">
+  <div class="container">
+    <h1>Categoria</h1>
+    <div class="row" id="datos">
+    </div>
+  </div>
+</section>
+<!-- ----SECCIONES---- -->
+
+
   </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/front.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, options);
+  });
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+    $('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true
+  });
+  });
+  </script>
 </html>
