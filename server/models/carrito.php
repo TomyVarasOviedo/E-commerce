@@ -5,3 +5,10 @@ function mostrar_carrito($user){
     $row = $consulta->fetch_all(1);
     echo json_encode($row);
 }
+function agregar_carrito($datos){
+    include_once("./conexion.php");
+    $consulta = $conexion->query("INSERT INTO carrito(id_carrito, fk_usuario, fk_producto) VALUES (NULL,'$datos->id_usuario','$datos->id_producto')");
+    
+    echo json_encode("Datos Guardados");
+    
+}
