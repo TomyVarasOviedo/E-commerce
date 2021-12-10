@@ -12,3 +12,9 @@ function agregar_carrito($datos){
     echo json_encode("Datos Guardados");
     
 }
+function eliminar_carrito($id){
+    include_once("./conexion.php");
+    $consulta = $conexion->query("DELETE FROM carrito WHERE id_carrito = $id");
+
+    echo json_encode("Producto Eliminado");
+}

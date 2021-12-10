@@ -11,3 +11,8 @@ router("POST", "/carrito-agregar",function (){
 
     echo agregar_carrito($datos);
 });
+router("GET", "/carrito-eliminar/:id", function ($id){
+    include_once("./models/carrito.php");
+
+    echo eliminar_carrito($id);
+});
