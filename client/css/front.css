@@ -57,6 +57,7 @@ header{
 section{
     padding: 40px 0;
     height: 100vh;
+    text-align: center;
     position: relative;
 }
 section .container{
@@ -82,4 +83,83 @@ section .container{
 .titulo-carrito{
     font-size: 2.3em !important;
     color: #fff !important;
+}
+section h1{
+    font-weight: 600;
+    font-size: 4.5em;
+    padding-top: 20px;
+    color: var(--color-principal);
+}
+#img-gallery  ul{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    flex-direction: row;
+}
+#img-gallery ul li{
+    /* min-width: 80px;
+    max-width: 150px; */
+    background: var(--color-principal);
+    padding: 8px 20px;
+    margin: 5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.galeria{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+} 
+.galeria .itemBox{
+    position: relative;
+    width: 270px;
+    height: 270px;
+    margin: 5px;
+}
+.galeria .itemBox img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.galeria .itemBox:hover img{
+    transition: scale, 0.5s ease-in-out;
+    scale: 0.5;
+}
+@media only screen and (max-width: 1200px){
+    section .proyectos_card .card{
+        font-size: 0.9em;
+        height: 13em;
+    }
+    section .proyectos_card .card .imagen{
+        height: 150px;
+    }
+}
+@media only screen and (max-width: 776px) {
+    section .proyectos_card .card{
+        font-size: 0.6em;
+    }
+    section .proyectos_card .card:hover{
+        height: 35em;
+    }
+    section .proyectos_card .card .imagen{
+        height: 100px;
+    }
+    .texto{
+        background-color: transparent;
+    }
+    .texto h1, .texto h2 span{
+        text-align: center;
+        font-size: 15vw;
+    }
+    .menu{
+        width: 100%;
+    }
+    .galeria .itemBox{
+        width: 200px;
+        height: 200px;
+    }
 }
