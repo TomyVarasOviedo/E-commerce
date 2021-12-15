@@ -2,6 +2,9 @@
 let menu = document.getElementById('menu')
 let menuMobile = document.getElementById('mobile-demo')
 let menuCategoria 
+let galeria = document.querySelector('.galeria')
+let galeriaUl = document.querySelector('#img-gallery ul')
+let usuario = 1
 // let datos = await categorias()
 // ---VARIABLES---//
 
@@ -26,7 +29,9 @@ let navbarCategorias = async()=>{
       menu.innerHTML += `<li><a href="#${categoria.nombre}" data-categoria="${categoria.id_categoria}">${categoria.nombre}</a></li>`
       menuMobile.innerHTML += `<li><a class="sidenav-close" href="#${categoria.nombre}" data-categoria="${categoria.id_categoria}">${categoria.nombre}</a></li>`
     });
-    menu.innerHTML += "<li><a href=''><i class='material-icons small'>shopping_cart</i></a></li>"
+    menuMobile.innerHTML += "<li><a href='#img-gallery' class='sidenav-close' >Galeria</a></li>"
+    menu.innerHTML += "<li><a href='#img-gallery'>Galeria</a></li>"
+    menu.innerHTML += "<li><a href='carrito/carrito.html?usuario=1'><i class='material-icons small'>shopping_cart</i></a></li>"
 }
 let secciones = async()=>{
    await categorias().then(resolve=>{
@@ -58,23 +63,19 @@ let secciones = async()=>{
             const imgContent = document.createElement("div")
             imgContent.className += "card-image waves-effect waves-block waves-light"
             const img = document.createElement("img");
-            img.src = "img/fondo.svg";
+            img.src = `img/${producto.imagen}`;
             img.className = "activator responsive-img";
             imgContent.appendChild(img)
             // --------------------------------//
             const cardContent = document.createElement("div")
             const spanTitle = document.createElement("span")
-            const i = document.createElement("i")
             const precio = document.createElement("p");
             cardContent.className += "card-content"
             spanTitle.className += "card-title activator grey-text text-darken-4"
-            i.className += "material-icons right"
             precio.className += "precio"
             spanTitle.innerText= producto.titulo
-            i.innerText = "more_vert"
             precio.innerText = producto.precio
             cardContent.appendChild(spanTitle)
-            cardContent.appendChild(i)
             cardContent.appendChild(precio)
             // --------------------------------//
             const revealContent = document.createElement("div")
@@ -102,7 +103,7 @@ let secciones = async()=>{
             btnProducto.innerText = "Ver"
             btnCart.innerText = "Carrito"
             iCart.innerText = "shop"
-            btnCart.setAttribute("onclick", `agregarCarrito(${producto.id_producto}, 1)`)
+            btnCart.setAttribute("onclick", `agregarCarrito(${producto.id_producto}, ${usuario})`)
             btnProducto.href = `producto/index.html?id=${producto.id_producto}`
             btnCart.appendChild(iCart)
             actionContent.appendChild(btnCart)
@@ -151,6 +152,36 @@ let agregarCarrito =(id_producto, usuario)=>{
   })
   console.log(id_producto, usuario)
 }
+let pintarGaleria = async()=>{
+  let productosArray
+  await categorias().then(resolve=>{
+    resolve.forEach(categoria=>{
+      let nombreCategoria = categoria.nombre.split(" ", 1)
+      const li = document.createElement('li')
+      li.setAttribute("data-filter", `${nombreCategoria}`)
+      li.innerText = `${categoria.nombre}`
+      galeriaUl.appendChild(li)
+      filtrarGaleria()
+      fetch(`http://localhost/e-commerce/server/producto-categoria/${categoria.id_categoria}`)
+      .then(res=>res.json())
+      .then(respuesta=>{
+        
+        if (respuesta.length != 0) {
+          respuesta.forEach(producto=>{
+            const containerImg = document.createElement("div")
+            const img = document.createElement("img")
+            // -------------***-------------//
+            containerImg.className += `itemBox ${producto.categoria}`
+            img.src = `img/${producto.imagen}`
+            // -------------***-------------//
+            containerImg.appendChild(img)
+            galeria.appendChild(containerImg)
+          })
+        }
+      })
+    })
+  })
+}
   // ---FUNCIONES---//
 
   // ---EVENTOS---//
@@ -159,17 +190,32 @@ let agregarCarrito =(id_producto, usuario)=>{
       setTimeout(() => {
         navbarCategorias()
         secciones()
+        pintarGaleria()
       }, 1000);   
   });
 // ---EVENTOS---//
 
 // ---JQUERY---//
-$(window).scroll(function () {
-  if ($(this).scrollTop()>1) {
-    $("nav").addClass('sticky');	
-  } else {
-  $("nav").removeClass('sticky');
-  }
+$(document).ready(function () {
+  $(window).scroll(function () {
+    if ($(this).scrollTop()>1) {
+      $("nav").addClass('sticky');	
+    } else {
+    $("nav").removeClass('sticky');
+    }
+  })
 });
+let filtrarGaleria =()=>{
+  $('#img-gallery .row ul li').click(function() {
+    const value = $(this).attr('data-filter');
+    if(value == 'all'){
+        $('.itemBox').show(1000);
+    }
+    else{
+       $('.itemBox').not('.' + value).hide(100);
+       $('.itemBox').filter('.' + value).show(100);
+    }
+  })
+}
 // ---JQUERY---//
 

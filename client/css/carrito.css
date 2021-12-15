@@ -1,0 +1,28 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+:root{
+    --color-principal:rgba(233, 94, 1, 0.863); 
+}
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    height: 100px !important;
+    padding: 5px  15px;
+    background: var(--color-principal) !important;
+    box-shadow: none!important;
+    transition: background, 0.6s ease-in-out;
+}
+nav ul li a{
+    font-size: 1.8em;
+}
+nav ul li a i{
+    font-size: 2em !important;
+}
+.medium{
+    font-size: 2.8em !important;
+}
