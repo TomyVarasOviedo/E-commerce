@@ -61,10 +61,10 @@ let secciones = async()=>{
             col.className += "col xl3 l4 m6 s12"
             div.className += "card " + "sticky-action" 
             const imgContent = document.createElement("div")
-            imgContent.className += "card-image waves-effect waves-block waves-light"
+            imgContent.className += "card-image waves-effect waves-block waves-light img"
             const img = document.createElement("img");
             img.src = `img/${producto.imagen}`;
-            img.className = "activator responsive-img";
+            img.className = "activator responsive-img img";
             imgContent.appendChild(img)
             // --------------------------------//
             const cardContent = document.createElement("div")
@@ -128,27 +128,38 @@ let cerrarNavbar = ()=>{
   instance.close()
 }
 let agregarCarrito =(id_producto, usuario)=>{
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'bottom-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
-  Toast.fire({
-    icon: 'success',
-    iconColor: '#fff',
-    background: 'var(--color-principal)',
-    padding: '2em',
-    title: 'Agregado al Carrito',
-    width: '35em',
-    customClass:{
-      title:'titulo-carrito'
-    }
+  let form = new FormData()
+  form.set("usuario", usuario)
+  form.set("producto", id_producto)
+  fetch("http://localhost/e-commerce/server/carrito-agregar",
+  {
+    method: "POST",
+    body: form
+  }).then(res=>res.json())
+  .then(respuesta=>{
+    console.log(respuesta)
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    Toast.fire({
+      icon: 'success',
+      iconColor: '#fff',
+      background: 'var(--color-principal)',
+      padding: '2em',
+      title: 'Agregado al Carrito',
+      width: '35em',
+      customClass:{
+        title:'titulo-carrito'
+      }
+    })
   })
   console.log(id_producto, usuario)
 }
@@ -171,7 +182,7 @@ let pintarGaleria = async()=>{
             const containerImg = document.createElement("div")
             const img = document.createElement("img")
             // -------------***-------------//
-            containerImg.className += `itemBox ${producto.categoria}`
+            containerImg.className += `itemBox ${producto.categoria} img`
             img.src = `img/${producto.imagen}`
             // -------------***-------------//
             containerImg.appendChild(img)
@@ -217,5 +228,17 @@ let filtrarGaleria =()=>{
     }
   })
 }
+$('.img').mousedown(function (e) {  
+  if (e.which == 3) {
+    Swal.fire({
+      icon: 'error', 
+      title: '¿Que haces pa?',
+      text: 'Queres robarte la imagen rata tacaña'
+    })
+    $(document).bind("contextmenu" , function (e) {
+      return false
+    })
+  }
+})
 // ---JQUERY---//
 

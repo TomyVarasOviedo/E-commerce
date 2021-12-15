@@ -57,6 +57,7 @@ header{
 section{
     padding: 40px 0;
     height: 100vh;
+    max-height: 100vh;
     text-align: center;
     position: relative;
 }
@@ -109,6 +110,7 @@ section h1{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    overflow-y: scroll;
 } 
 .galeria .itemBox{
     position: relative;
