@@ -2,6 +2,7 @@
 let menu = document.getElementById('menu')
 let menuMobile = document.getElementById('mobile-demo')
 let menuCategoria 
+let containerBody = document.getElementById("container")
 let galeria = document.querySelector('.galeria')
 let galeriaUl = document.querySelector('#img-gallery ul')
 let usuario = 1
@@ -46,14 +47,14 @@ let secciones = async()=>{
          const h1Categoria = document.createElement('h1');
          const row = document.createElement('div');
          section.className = "section"
-         container.className = "container"
+        //  container.className = "container"
          row.className = "row"
          h1Categoria.innerText = respuesta[0].categoria
          section.setAttribute("id", respuesta[0].categoria)
          row.appendChild(h1Categoria)
          container.appendChild(row)
          section.appendChild(container)
-         document.body.appendChild(section)
+         containerBody.appendChild(section)
         //  ----------------------------------//
           respuesta.forEach(producto=>{
             const div = document.createElement("div");
@@ -228,7 +229,8 @@ let filtrarGaleria =()=>{
     }
   })
 }
-$('.img').mousedown(function (e) {  
+
+$('*').mousedown(function (e) {  
   if (e.which == 3) {
     Swal.fire({
       icon: 'error', 
