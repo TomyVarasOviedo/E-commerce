@@ -10,6 +10,9 @@
 :root{
     --color-principal:rgba(233, 94, 1, 0.863); 
 }
+img{
+    user-select: none;
+}
 nav{
     position: fixed;
     top: 0;
@@ -55,7 +58,7 @@ header{
     object-fit: cover;
 }
 section{
-    padding: 40px 0;
+    padding: 40px 0 0 30px;
     height: 100vh;
     max-height: 100vh;
     text-align: center;
@@ -91,6 +94,9 @@ section h1{
     padding-top: 20px;
     color: var(--color-principal);
 }
+#img-gallery{
+    padding-bottom: 40px;
+}
 #img-gallery  ul{
     display: flex;
     justify-content: center;
@@ -107,21 +113,22 @@ section h1{
     cursor: pointer;
 }
 .galeria{
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
     flex-wrap: wrap;
-    overflow-y: scroll;
+    padding: 20px;
+    grid-gap: 5px;
 } 
-.galeria .itemBox{
-    position: relative;
-    width: 270px;
-    height: 270px;
-    margin: 5px;
+.galeria .itemBox:nth-child(1){
+    grid-row-start:span 2;
+    grid-column-start:span 2 ;
+}
+.galeria .itemBox:nth-child(){
+    grid-row-start:span 2;
+    grid-column-start:span 1 ;
 }
 .galeria .itemBox img{
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -141,27 +148,11 @@ section h1{
     }
 }
 @media only screen and (max-width: 776px) {
-    section .proyectos_card .card{
-        font-size: 0.6em;
+    .galeria{
+        grid-template-columns: 1fr;
     }
-    section .proyectos_card .card:hover{
-        height: 35em;
-    }
-    section .proyectos_card .card .imagen{
-        height: 100px;
-    }
-    .texto{
-        background-color: transparent;
-    }
-    .texto h1, .texto h2 span{
-        text-align: center;
-        font-size: 15vw;
-    }
-    .menu{
-        width: 100%;
-    }
-    .galeria .itemBox{
-        width: 200px;
-        height: 200px;
+    .galeria .itemBox:nth-child(1){
+        grid-row-start:none;
+        grid-column-start:none;
     }
 }
